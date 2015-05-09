@@ -1,0 +1,20 @@
+package echo;
+option java_package = "proto.net.echo";   
+
+message HeartBeat {
+	optional double timestamp	= 1 [default=0];
+}
+
+message Ping {
+	optional double timestamp	= 1 [default=0];
+}
+
+message Pong {
+	optional double timestamp	= 1 [default=0];
+}
+
+message Package {
+	required string name = 1;
+	optional bytes body = 2;
+}
+
