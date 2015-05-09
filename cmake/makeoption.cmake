@@ -1,0 +1,6 @@
+SET(BUILD_SHARED_LIBS Off)
+set(CMAKE_FIND_LIBRARY_SUFFIXES ".a;.so")
+
+set(CMAKE_C_FLAGS "-pthread ${CMAKE_C_FLAGS}")
+set(CMAKE_CXX_FLAGS "-pthread ${CMAKE_CXX_FLAGS}")
+
