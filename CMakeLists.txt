@@ -3,7 +3,7 @@ project(echoutils)
 
 include(CMakeProtobuf)
 
-
+set(CMAKE_CXX_FLAGS "-g ${CMAKE_CXX_FLAGS}")
 set(PROTO_DEF_FILES proto/echo.proto)
 set(PROTOBUF_IMPORT_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/proto)
 
@@ -18,7 +18,7 @@ target_include_directories(proto
 
 find_package(Protobuf REQUIRED)
 
-add_executable(echosvc src/server.cc)
+add_executable(echosvc src/server.cc src/proto.h)
 target_include_directories(echosvc PRIVATE
 	PRIVATE $<TARGET_PROPERTY:proto,INTERFACE_INCLUDE_DIRECTORIES>
 	)
@@ -31,3 +31,14 @@ target_link_libraries(echosvc LINK_PRIVATE
 	)
 
 
+add_executable(echocli src/client.cc src/proto.h)
+target_include_directories(echocli PRIVATE
+	PRIVATE $<TARGET_PROPERTY:proto,INTERFACE_INCLUDE_DIRECTORIES>
+	)
+target_link_libraries(echocli LINK_PRIVATE
+	proto
+	ev
+	gflags
+	glog
+	protobuf
+	)

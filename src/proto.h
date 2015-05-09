@@ -49,3 +49,15 @@ static std::string pack_message(const google::protobuf::Message* msg) {
 	return pkg.SerializeAsString();
 }
 
+static void send_pong(int sock,const echo::Ping* ping,const struct sockaddr_in* remote) {
+	echo::Pong pong;
+	if( ping->has_timestamp() ) {
+		pong.set_timestamp(ping->timestamp());
+	}
+	if( ping->has_seq() ) {
+		pong.set_seq(ping->seq());
+	}
+	std::string pkg = pack_message(&pong);
+	sendto(sock,pkg.c_str(),pkg.size(),0,(const struct sockaddr*)remote,sizeof(struct sockaddr_in));
+}
+
